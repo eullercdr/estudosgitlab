@@ -22,7 +22,9 @@ test site:
 vulnerabilidades check:
   stage: test
   script:
-    - cd website && npm install && npm run scan
+    - cd website 
+    - npm install
+    - npm run scan
 
 package site:
   stage: package
