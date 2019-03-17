@@ -6,10 +6,9 @@ stages:
 build site:
   stage: build
   artifacts:
-    paths:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
-    path: 
-    - ./website/build/devopsecdr
+    paths: 
+      - ./website/build/devopsecdr
     when: always
     expire_in: 1 week
   script:
