@@ -66,8 +66,8 @@ deploy to staging:
   after_script:
     - whoami
   environment:
-    name: develop
-    url: ${CNAME}
+    name: staging
+    url: http://${CNAME}
   only:
     - develop
 
@@ -89,11 +89,10 @@ deploy to release:
     - whoami
   environment:
     name: review/$CI_COMMIT_REF_SLUG
-    url: ${CNAME}
-    on_stop: turnoff
+    url: http://${CNAME}  
+    on_stop: turnoff 
   only:
     - /^release-.*$/
-  
 
 turnoff:
   stage: deploy
@@ -112,7 +111,6 @@ turnoff:
     - /^release-.*$/
   
   
-
 deploy to production:
   stage: deploy
   variables:
@@ -131,6 +129,6 @@ deploy to production:
     - whoami
   environment:
     name: production
-    url: ${CNAME}
+    url: http://${CNAME}
   only:
     - master
