@@ -71,8 +71,48 @@ deploy to staging:
   only:
     - develop
 
+deploy to release:
+  stage: deploy
+  variables:
+    CNAME: $CI_COMMIT_REF_SLUG-eullercristian.surge.sh
+    GIT_STRATEGY: none
+  cache:
+    key: site-package
+    policy: pull
+    paths:
+    - ./website/build  
+  before_script:
+    - npm install -g surge
+  script:
+    - surge --project ./website/build/missaodevops --domain ${CNAME}
+  after_script:
+    - whoami
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: ${CNAME}
+    on_stop: turnoff
+  only:
+    - /^release-.*$/
+  
 
-    
+turnoff:
+  stage: deploy
+  variables:
+    CNAME: $CI_COMMIT_REF_SLUG-eullercristian.surge.sh
+    GIT_STRATEGY: none
+  before_script:
+    - npm install -g surge
+  script:
+    - surge teardown ${CNAME}
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: ${CNAME}
+    action: stop    
+  only:
+    - /^release-.*$/
+  
+  
+
 deploy to production:
   stage: deploy
   variables:
