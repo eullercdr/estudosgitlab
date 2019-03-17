@@ -5,6 +5,10 @@ stages:
   - deploy
 build site:
   stage: build
+  artifacts:
+    paths:
+    - ./website/build/docusaurus
+    expire_in: 1 week
   script:
     - ls -ltra
     - pwd
