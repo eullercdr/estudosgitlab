@@ -22,7 +22,7 @@ test site:
 vulnerabilidades check:
   stage: test
   script:
-    - cd website && npm install -g && npm fun scan
+    - cd website && npm install -g && npm run scan
 
 package site:
   stage: package
