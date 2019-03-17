@@ -21,7 +21,7 @@ test site:
     - cd website
     - npm install && npm run start &
     - wait-on http://localhost:3000
-    - blc --recursive --exclude-external http://localhost:3000
+    #- blc --recursive --exclude-external http://localhost:3000
   
 package site:
   stage: package
