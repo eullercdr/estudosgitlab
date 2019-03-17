@@ -3,7 +3,12 @@ stages:
   - build
   - test
   - deploy
-build site:
+
+ cache:
+ paths:
+  - ./website/build
+
+ build site:
   stage: build
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
@@ -19,3 +24,9 @@ build site:
     - cd website
     - npm install
     - npm run build
+deploy website:
+  stage: deploy
+  scripts:
+    - npm install -g surge
+    - surge --project ./website/build/missaodevops --domain http://eullercristian.surge.sh
+
