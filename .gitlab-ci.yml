@@ -4,10 +4,6 @@ stages:
   - package
   - deploy
 
-cache:
- paths:
-  - ./website/build
-
 before_script:
   - whoami
   - pwd
@@ -25,6 +21,11 @@ test site:
   
 package site:
   stage: package
+  cache:
+    key: site-package
+    policy: push
+    paths:
+    - ./website/build
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     paths: 
@@ -42,6 +43,11 @@ package site:
 
 deploy to staging:
   stage: deploy
+  cache:
+    key: site-package
+    policy: pull
+    paths:
+    - ./website/build  
   before_script:
     - npm install -g surge
   script:
