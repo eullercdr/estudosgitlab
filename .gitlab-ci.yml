@@ -62,12 +62,12 @@ deploy to staging:
   before_script:
     - npm install -g surge
   script:
-    - surge --project ./website/build/missaodevops --domain staging.eullercristian.surge.sh
+    - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
     - whoami
   environment:
     name: staging
-    url: http://staging.eullercristian.surge.sh
+    url: http://${CNAME}
   only:
     - develop
 
