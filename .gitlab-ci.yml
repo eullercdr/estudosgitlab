@@ -9,7 +9,8 @@ build site:
     paths:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     path: 
-      - ./website/build/devopsecdr
+    - ./website/build/devopsecdr
+    when: always
     expire_in: 1 week
   script:
     - ls -ltra
