@@ -1,7 +1,7 @@
 image: node
 stages:
-  - build
   - test
+  - package
   - deploy
 
 cache:
@@ -12,8 +12,19 @@ before_script:
   - whoami
   - pwd
 
-build site:
-  stage: build
+#CHECA SE ALGUM LINK NO SITE ESTÁ QUEBRADO ANTES DE BUILDAR
+test site:
+  stage: test
+  before_script:
+    - npm install -g broken-link-checker wait-on
+  script:
+    - cd website
+    - npm install && npm run start &
+    - wait-on http://localhost:3000 --timeout 30000
+    - blc --recursive --exclude-external http://localhost:3000
+  
+package site:
+  stage: package
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     paths: 
@@ -29,7 +40,7 @@ build site:
     - npm install
     - npm run build
 
-deploy website:
+deploy to staging:
   stage: deploy
   before_script:
     - npm install -g surge
