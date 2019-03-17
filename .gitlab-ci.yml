@@ -22,7 +22,8 @@ test site:
 vulnerabilidades check:
   stage: test
   script:
-    - cd website && npm install -g snyk && npm run scan
+    - cd website && npm install -g snyk 
+    - snyk test
 
 package site:
   stage: package
