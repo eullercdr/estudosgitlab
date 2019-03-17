@@ -52,8 +52,8 @@ package site:
 deploy to staging:
   stage: deploy
   variables:
-    - CNAME: "staging-eullercristian.surge.sh"
-    - GIT_STRATEGY: "none"
+    CNAME: staging-eullercristian.surge.sh
+    GIT_STRATEGY: none
   cache:
     key: site-package
     policy: pull
@@ -74,8 +74,8 @@ deploy to staging:
 deploy to production:
   stage: deploy
   variables:
-    - CNAME: "eullercristian.surge.sh"
-    - GIT_STRATEGY: "none"
+    CNAME: eullercristian.surge.sh
+    GIT_STRATEGY: none
   cache:
     key: site-package
     policy: pull
