@@ -17,14 +17,15 @@ test site:
     - cd website
     - npm install && npm run start &
     - wait-on http://localhost:3000
+    #  valida a integridade de todas as urls e paths de imagens
     #- blc --recursive --exclude-external http://localhost:3000
 
-vulnerabilidades check:
-  stage: test
-  script:
-    - cd website 
-    - npm install
-    - npm run scan
+# vulnerabilidades check:
+#   stage: test
+#   script:
+#     - cd website 
+#     - npm install
+#     - npm run scan
 
 package site:
   stage: package
@@ -50,6 +51,9 @@ package site:
 
 deploy to staging:
   stage: deploy
+  variables:
+    - CNAME: staging-eullercristian.surge.sh
+    - GIT_STRATEGY: none
   cache:
     key: site-package
     policy: pull
@@ -58,11 +62,33 @@ deploy to staging:
   before_script:
     - npm install -g surge
   script:
-    - surge --project ./website/build/missaodevops --domain http://eullercristian.surge.sh/
+    - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
     - whoami
   environment:
     name: staging
-    url: http://eullercristian.surge.sh/
+    url: ${CNAME}
   only:
     - develop
+
+deploy to production:
+  stage: deploy
+  variables:
+    - CNAME: eullercristian.surge.sh
+    - GIT_STRATEGY: none
+  cache:
+    key: site-package
+    policy: pull
+    paths:
+    - ./website/build  
+  before_script:
+    - npm install -g surge
+  script:
+    - surge --project ./website/build/missaodevops --domain ${CNAME}
+  after_script:
+    - whoami
+  environment:
+    name: staging
+    url: ${CNAME}
+  only:
+    - master
