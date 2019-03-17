@@ -18,7 +18,12 @@ test site:
     - npm install && npm run start &
     - wait-on http://localhost:3000
     #- blc --recursive --exclude-external http://localhost:3000
-  
+
+vulnerabilidades check:
+  stage: test
+  script:
+    - cd website && npm install -g && npm fun scan
+
 package site:
   stage: package
   cache:
