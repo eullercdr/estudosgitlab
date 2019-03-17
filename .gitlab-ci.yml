@@ -7,8 +7,9 @@ build site:
   stage: build
   artifacts:
     paths:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME
-    - ./website/build/devopsecdr
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    path: 
+      - ./website/build/devopsecdr
     expire_in: 1 week
   script:
     - ls -ltra
