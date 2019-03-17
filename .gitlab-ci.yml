@@ -103,6 +103,7 @@ turnoff:
     - npm install -g surge
   script:
     - surge teardown ${CNAME}
+  when: manual
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     url: ${CNAME}
