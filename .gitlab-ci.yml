@@ -53,7 +53,7 @@ deploy to staging:
   stage: deploy
   variables:
     CNAME: staging.eullercristian.surge.sh
-    GIT_STRATEGY: "none"
+    GIT_STRATEGY: none
   cache:
     key: site-package
     policy: pull
@@ -62,12 +62,12 @@ deploy to staging:
   before_script:
     - npm install -g surge@^0.20.1
   script:
-    - surge --project ./website/build/missaodevops --domain staging.eullercristian.surge.sh
+    - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
     - whoami
   environment:
-    name: staging
-    url: http://staging.eullercristian.surge.sh
+    name: production
+    url: http://${CNAME}
   only:
     - develop
 
@@ -83,6 +83,7 @@ deploy to release:
     - ./website/build  
   before_script:
     - npm install -g surge@^0.20.1
+    - pwd
   script:
     - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
