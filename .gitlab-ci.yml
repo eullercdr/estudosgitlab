@@ -9,16 +9,16 @@ before_script:
   - pwd
 
 #CHECA SE ALGUM LINK NO SITE ESTÁ QUEBRADO ANTES DE BUILDAR
-test site:
-  stage: test
-  before_script:
-    - npm install -g broken-link-checker wait-on
-  script:
-    - cd website
-    - npm install && npm run start &
-    - wait-on http://localhost:3000
-    #  valida a integridade de todas as urls e paths de imagens
-    #- blc --recursive --exclude-external http://localhost:3000
+# test site:
+#   stage: test
+#   before_script:
+#     - npm install -g broken-link-checker wait-on
+#   script:
+#     - cd website
+#     - npm install && npm run start &
+#     - wait-on http://localhost:3000
+#     #  valida a integridade de todas as urls e paths de imagens
+#     #- blc --recursive --exclude-external http://localhost:3000
 
 # vulnerabilidades check:
 #   stage: test
@@ -60,7 +60,7 @@ deploy to staging:
     paths:
     - ./website/build  
   before_script:
-    - npm install -g surge
+    - npm install -g surge@^0.20.1
   script:
     - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
@@ -82,7 +82,7 @@ deploy to release:
     paths:
     - ./website/build  
   before_script:
-    - npm install -g surge
+    - npm install -g surge@^0.20.1
   script:
     - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
@@ -100,7 +100,7 @@ turnoff:
     CNAME: $CI_COMMIT_REF_SLUG-eullercristian.surge.sh
     GIT_STRATEGY: none
   before_script:
-    - npm install -g surge
+    - npm install -g surge@^0.20.1
   script:
     - surge teardown ${CNAME}
   when: manual
@@ -123,7 +123,7 @@ deploy to production:
     paths:
     - ./website/build  
   before_script:
-    - npm install -g surge
+    - npm install -g surge@^0.20.1
   script:
     - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
