@@ -66,11 +66,13 @@ deploy to staging:
   after_script:
     - whoami
   environment:
-    name: staging
+    name: develop
     url: ${CNAME}
   only:
     - develop
 
+
+    
 deploy to production:
   stage: deploy
   variables:
