@@ -52,7 +52,7 @@ package site:
 deploy to staging:
   stage: deploy
   variables:
-    CNAME: staging-eullercristian.surge.sh
+    CNAME: staging.eullercristian.surge.sh
     GIT_STRATEGY: none
   cache:
     key: site-package
@@ -74,7 +74,7 @@ deploy to staging:
 deploy to release:
   stage: deploy
   variables:
-    CNAME: $CI_COMMIT_REF_SLUG-eullercristian.surge.sh
+    CNAME: $CI_COMMIT_REF_SLUG.eullercristian.surge.sh
     GIT_STRATEGY: none
   cache:
     key: site-package
