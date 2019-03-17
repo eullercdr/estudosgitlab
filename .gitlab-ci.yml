@@ -1,5 +1,10 @@
 image: node
-construir site:
+stages:
+  - build
+  - test
+  - deploy
+build site:
+  stage: build
   script:
     - ls -ltra
     - pwd
