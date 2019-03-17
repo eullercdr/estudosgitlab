@@ -83,7 +83,6 @@ deploy to release:
     - ./website/build  
   before_script:
     - npm install -g surge@^0.20.1
-    - pwd
   script:
     - surge --project ./website/build/missaodevops --domain ${CNAME}
   after_script:
