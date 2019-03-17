@@ -40,4 +40,5 @@ deploy website:
   environment:
     name: staging
     url: http://eullercristian.surge.sh/
-
+  only:
+    - develop
